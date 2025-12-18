@@ -1,0 +1,8 @@
+{
+  "name": "Portal MWCNU Bungah",
+  "description": "A comprehensive digital portal for the Majelis Wakil Cabang Nahdlatul Ulama (MWCNU) Bungah, featuring news, articles, organizational profiles, asset management, and an AI-powered assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
