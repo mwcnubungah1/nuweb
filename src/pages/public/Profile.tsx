@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-// Naik dari public -> pages -> src, lalu masuk utils
-import { MOCK_PROFILES } from '../../utils/constants';
-import { Users, Shield, Briefcase } from 'lucide-react';
+// Pastikan MOCK_PROFILES di utils/constants.ts sudah diupdate datanya
+import { MOCK_PROFILES } from '../../utils/constants'; 
 
 const Profile: React.FC = () => {
-  const [filter, setFilter] = useState<'All' | 'Banom' | 'Lembaga'>('All');
+  // State filter ditambah 'Pengurus Harian'
+  const [filter, setFilter] = useState<'All' | 'Pengurus Harian' | 'Banom' | 'Lembaga'>('All');
 
   const filtered = filter === 'All' 
     ? MOCK_PROFILES 
@@ -15,19 +15,20 @@ const Profile: React.FC = () => {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-extrabold text-slate-900 mb-4">Profil Organisasi</h1>
         <p className="text-slate-500 max-w-2xl mx-auto">
-          MWCNU Bungah menaungi berbagai Badan Otonom dan Lembaga untuk mencakup berbagai aspek kehidupan masyarakat.
+          Mengenal lebih dekat struktur kepengurusan MWCNU Bungah.
         </p>
       </div>
 
-      <div className="flex justify-center gap-4 mb-12">
-        {['All', 'Banom', 'Lembaga'].map((f) => (
+      {/* Navigasi Filter Kategori */}
+      <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {['All', 'Pengurus Harian', 'Banom', 'Lembaga'].map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f as any)}
-            className={`px-6 py-2 rounded-full font-bold text-sm transition-all ${
+            className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all border ${
               filter === f 
-                ? 'bg-green-800 text-white shadow-lg' 
-                : 'bg-white text-slate-600 border border-slate-200 hover:border-green-300'
+                ? 'bg-green-800 text-white border-green-800 shadow-lg shadow-green-900/20' 
+                : 'bg-white text-slate-600 border-slate-200 hover:border-green-500 hover:text-green-700'
             }`}
           >
             {f}
@@ -37,24 +38,35 @@ const Profile: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filtered.map((p) => (
-          <div key={p.id} className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all group">
+          <div key={p.id} className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all group relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+               {/* Hiasan background icon jika diperlukan */}
+            </div>
+            
             <div className="flex items-start justify-between mb-6">
-              <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center overflow-hidden">
-                <img src={p.logoUrl} alt={p.name} className="w-12 h-12 object-contain" />
+              <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center p-3 border border-slate-100">
+                <img src={p.logoUrl || "https://upload.wikimedia.org/wikipedia/commons/2/22/Nahdlatul_Ulama_Logo.svg"} alt={p.name} className="w-full h-full object-contain" />
               </div>
               <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
-                p.type === 'Banom' ? 'bg-blue-50 text-blue-700' : 'bg-orange-50 text-orange-700'
+                p.type === 'Banom' ? 'bg-blue-50 text-blue-700' : 
+                p.type === 'Lembaga' ? 'bg-orange-50 text-orange-700' :
+                'bg-green-50 text-green-700'
               }`}>
                 {p.type}
               </span>
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-green-800 transition-colors">{p.name}</h3>
-            <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+            
+            <h3 className="text-2xl font-bold text-slate-900 mb-2 group-hover:text-green-800 transition-colors">{p.name}</h3>
+            
+            <div className="h-px w-10 bg-slate-200 my-4 group-hover:w-full group-hover:bg-green-200 transition-all duration-500"></div>
+            
+            <p className="text-slate-500 text-sm mb-6 leading-relaxed line-clamp-3">
               {p.description}
             </p>
-            <div className="pt-6 border-t border-slate-50">
-              <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Ketua / Koordinator</p>
-              <p className="font-bold text-slate-800">{p.leader}</p>
+            
+            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1 font-bold">Ketua / Koordinator</p>
+              <p className="font-bold text-slate-800 text-sm">{p.leader}</p>
             </div>
           </div>
         ))}
