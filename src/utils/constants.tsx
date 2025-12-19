@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Home, 
@@ -10,11 +9,12 @@ import {
   Database, 
   Mail 
 } from 'lucide-react';
-import { NewsItem, BanomLembaga, Program, Asset } from './types';
+// Import types naik satu level (keluar dari utils, masuk ke src)
+import { NewsItem, BanomLembaga, Program, Asset } from '../types/types';
 
 export const COLORS = {
-  primary: '#166534', // NU Green
-  secondary: '#ca8a04', // NU Gold/Yellow
+  primary: '#166534', 
+  secondary: '#ca8a04', 
 };
 
 export const NAV_LINKS = [

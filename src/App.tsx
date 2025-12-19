@@ -1,28 +1,30 @@
-
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
-import AIAssistant from './components/AIAssistant';
-import Home from './views/Home';
-import Profile from './views/Profile';
-import Assets from './views/Assets';
-import Contact from './views/Contact';
-import Login from './views/Login';
-import Dashboard from './views/admin/Dashboard';
 
-// Public layout wrapper
+// Layout utama
+import Layout from './components/Layout'; 
+
+// Pages Public
+import Home from './pages/public/Home';
+import Profile from './pages/public/Profile';
+import Assets from './pages/public/Assets';
+import Contact from './pages/public/Contact';
+
+// Pages Auth & Admin
+import Login from './pages/auth/Login';
+import Dashboard from './pages/admin/Dashboard';
+
+// Public layout wrapper (Tanpa AI Assistant)
 const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <>
-    <Layout>{children}</Layout>
-    <AIAssistant />
-  </>
+  <Layout>{children}</Layout>
 );
 
+// Placeholder Components (Sementara)
 const NewsView = () => (
   <PublicLayout>
     <div className="max-w-7xl mx-auto px-4 py-20 text-center">
       <h1 className="text-4xl font-bold mb-4 text-green-900">Berita Terbaru</h1>
-      <p className="text-slate-500">Daftar berita lengkap akan ditampilkan di sini.</p>
+      <p className="text-slate-500">Halaman berita sedang dalam pengembangan.</p>
     </div>
   </PublicLayout>
 );
@@ -31,7 +33,7 @@ const ArticleView = () => (
   <PublicLayout>
     <div className="max-w-7xl mx-auto px-4 py-20 text-center">
       <h1 className="text-4xl font-bold mb-4 text-green-900">Artikel & Opini</h1>
-      <p className="text-slate-500">Ruang literasi dan pemikiran warga NU Bungah.</p>
+      <p className="text-slate-500">Halaman artikel sedang dalam pengembangan.</p>
     </div>
   </PublicLayout>
 );
@@ -40,7 +42,7 @@ const ProgramView = () => (
   <PublicLayout>
     <div className="max-w-7xl mx-auto px-4 py-20 text-center">
       <h1 className="text-4xl font-bold mb-4 text-green-900">Program Kerja</h1>
-      <p className="text-slate-500">Transparansi program kerja tahunan MWCNU Bungah.</p>
+      <p className="text-slate-500">Halaman program kerja sedang dalam pengembangan.</p>
     </div>
   </PublicLayout>
 );
@@ -48,8 +50,8 @@ const ProgramView = () => (
 const GalleryView = () => (
   <PublicLayout>
     <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-      <h1 className="text-4xl font-bold mb-4 text-green-900">Dokumentasi Kegiatan</h1>
-      <p className="text-slate-500">Galeri foto dan video kegiatan rutin organisasi.</p>
+      <h1 className="text-4xl font-bold mb-4 text-green-900">Dokumentasi</h1>
+      <p className="text-slate-500">Halaman galeri sedang dalam pengembangan.</p>
     </div>
   </PublicLayout>
 );

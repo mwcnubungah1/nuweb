@@ -1,6 +1,6 @@
-
 import React from 'react';
-import { MOCK_ASSETS } from '../constants';
+// PERBAIKAN: Naik 2 level (../../) untuk akses folder utils
+import { MOCK_ASSETS } from '../../utils/constants';
 import { MapPin, Info, Tag } from 'lucide-react';
 
 const Assets: React.FC = () => {
@@ -36,21 +36,6 @@ const Assets: React.FC = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="mt-16 bg-blue-50 border border-blue-100 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6">
-        <div className="p-4 bg-blue-100 rounded-full">
-          <Info className="text-blue-600" size={32} />
-        </div>
-        <div>
-          <h4 className="text-xl font-bold text-blue-900 mb-1">Butuh Detail Lebih Lanjut?</h4>
-          <p className="text-blue-700 text-sm">
-            Data yang ditampilkan adalah ringkasan publik. Untuk keperluan riset atau administrasi resmi, silakan hubungi Sekretariat MWCNU Bungah.
-          </p>
-        </div>
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-full font-bold ml-auto whitespace-nowrap hover:bg-blue-700 transition-colors">
-          Ajukan Akses Data
-        </button>
       </div>
     </div>
   );

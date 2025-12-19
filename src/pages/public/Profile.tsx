@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { MOCK_PROFILES } from '../constants';
+// Naik dari public -> pages -> src, lalu masuk utils
+import { MOCK_PROFILES } from '../../utils/constants';
 import { Users, Shield, Briefcase } from 'lucide-react';
 
 const Profile: React.FC = () => {
