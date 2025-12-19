@@ -1,7 +1,9 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Leaf, Lock, Mail, AlertCircle } from 'lucide-react';
+// PENTING: Import supabase client asli
+// Sesuaikan path ini dengan lokasi file supabase.ts Anda
+import { supabase } from '../../services/supabase'; 
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -15,17 +17,34 @@ const Login: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    // Mock authentication for demo purposes
-    // In production, use: await supabase.auth.signInWithPassword({ email, password })
-    setTimeout(() => {
-      if (email === 'admin@nubungah.or.id' && password === 'admin123') {
-        localStorage.setItem('isLoggedIn', 'true');
-        navigate('/admin');
-      } else {
-        setError('Email atau password salah. Silakan coba lagi.');
+    try {
+      // 1. Login sungguhan ke Supabase
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (authError) {
+        throw authError;
       }
+
+      // 2. Jika sukses, simpan penanda di localstorage (opsional, untuk UI saja)
+      // Supabase otomatis menangani token/session di balik layar
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', data.user?.email || '');
+
+      // 3. Redirect ke Admin
+      navigate('/admin');
+
+    } catch (err: any) {
+      console.error("Login Error:", err);
+      // Tampilkan pesan error yang lebih user-friendly
+      setError(err.message === "Invalid login credentials" 
+        ? "Email atau password salah." 
+        : "Gagal login. Periksa koneksi internet Anda.");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -94,7 +113,7 @@ const Login: React.FC = () => {
                 disabled={isLoading}
                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-green-800 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all disabled:opacity-50"
               >
-                {isLoading ? 'Masuk...' : 'Sign In'}
+                {isLoading ? 'Sedang masuk...' : 'Sign In'}
               </button>
             </div>
           </form>
